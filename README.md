@@ -1,0 +1,2 @@
+# Slacking Assisntant  
+This app was built using Vite React and Microsoft Copilot in order to assist Shift Leads in performing their nightly slacking duties. The goall was to make an app so that form was spreadsheet agnostic, and to make a web application for ease of use.
