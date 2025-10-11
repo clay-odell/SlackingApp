@@ -16,6 +16,7 @@ const Home = () => {
   ];
 
   const displayOrder = ["BEC", "BB", "BBM", "CMT", "CW", "CC", "SEC", "W"];
+  const [showInstructions, setShowInstructions] = useState(true);
 
   // initialize state with empty strings so inputs start blank
   const [formData, setFormData] = useState(
@@ -34,7 +35,7 @@ const Home = () => {
   const handleChange = (code, field, value) => {
     setFormData((prev) => ({
       ...prev,
-      [code]: { ...prev[code], [field]: value }
+      [code]: { ...prev[code], [field]: value },
     }));
   };
 
@@ -56,16 +57,27 @@ const Home = () => {
     <div className="container-fluid p-0">
       <div className="header">
         <h1>Slacking Assistant</h1>
-        <p>
-          Instructions: <br />
-          <strong>ALL DATA IS LOST ON PAGE REFRESH!!!!!</strong>
-        </p>
-        <ol>
-          <li>Enter the correct amount for each food item into amount needed column.</li>
-          <li>Count thawed food using the columns for drawers and slacking trays.</li>
-          <li>Put the number of trays you plan on using in the number of trays column.</li>
-          <li>Don’t forget to write on the Slacking Form on the freezer.</li>
-        </ol>
+        <button
+          className="btn btn-primary mb-3"
+          onClick={() => setShowInstructions((prev) => !prev)}
+        >
+          {showInstructions ? "Hide Instructions" : "Show Instructions"}
+        </button>
+
+        {showInstructions && (
+          <>
+            <p>
+              Instructions: <br />
+              <strong>ALL DATA IS LOST ON PAGE REFRESH!!!!!</strong>
+            </p>
+            <ol>
+              <li>Enter the correct amount for each food item into amount needed column.</li>
+              <li>Count thawed food using the columns for drawers and slacking trays.</li>
+              <li>Put the number of trays you plan on using in the number of trays column.</li>
+              <li>Don’t forget to write on the Slacking Form on the freezer.</li>
+            </ol>
+          </>
+        )}
       </div>
 
       {/* Main Input Table */}
