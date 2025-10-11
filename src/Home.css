@@ -15,7 +15,7 @@ html, body {
 
 /* Force table to be as wide as it needs */
 table {
-  min-width: 400px;   /* adjust to fit all your columns */
+  min-width: 390px;   /* adjust to fit all your columns */
   width: 100%;
   border-collapse: collapse;
   white-space: wrap; /* keep cells on one line, scroll instead of wrapping */
@@ -58,23 +58,17 @@ table {
   padding: 0.5rem;
   box-sizing: border-box;
 }
-
-
-
-/* Ultra-small devices (iPhone 14 portrait ~390px) */
-@media (max-width: 420px) {
-  table {
-    font-size: 0.75rem;
-  }
-  table th,
-  table td {
-    padding: 0.2rem;
-  }
-  .header h1 {
-    font-size: 1.25rem;
-  }
-  .header p,
-  .header ol {
-    font-size: 0.8rem;
-  }
+/* Summary table should be compact */
+.summary-table {
+  max-width: 500px;   /* keep it narrower than full screen */
+  margin: 0 auto;     /* center it */
+  table-layout: auto; /* let columns size naturally */
 }
+
+.summary-table th,
+.summary-table td {
+  white-space: normal;   /* allow wrapping */
+  word-break: break-word;
+  text-align: left;    /* center numbers */
+}
+
