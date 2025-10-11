@@ -110,7 +110,7 @@ const Home = () => {
      
         <h3 className="text-center">Printing Summary</h3>
         <div className="table-responsive">
-          <Table striped bordered hover size="sm" className="w-100">
+          <Table striped bordered hover size="sm" className="w-100" responsive>
             <thead>
               <tr>
                 <th>Food</th>

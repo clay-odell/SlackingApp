@@ -15,10 +15,10 @@ html, body {
 
 /* Force table to be as wide as it needs */
 table {
-  min-width: 700px;   /* adjust to fit all your columns */
+  min-width: 400px;   /* adjust to fit all your columns */
   width: 100%;
   border-collapse: collapse;
-  white-space: nowrap; /* keep cells on one line, scroll instead of wrapping */
+  white-space: wrap; /* keep cells on one line, scroll instead of wrapping */
 }
 
 /* Allow wrapping for headers/instructions, not table cells */
