@@ -59,6 +59,8 @@ table {
   box-sizing: border-box;
 }
 
+
+
 /* Ultra-small devices (iPhone 14 portrait ~390px) */
 @media (max-width: 420px) {
   table {
