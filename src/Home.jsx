@@ -18,8 +18,8 @@ const Home = () => {
   const displayOrder = ["BEC","BB","BBM","CMT","CW","CC","SEC","W"];
 
   const [formData, setFormData] = useState(
-    food.reduce((acc, item) => {
-      acc[item.code] = { amountNeeded: "", numberOfTrays: "", drawers: "", slackingTrays: "" };
+    food.reduce((acc, itstrong) => {
+      acc[itstrong.code] = { amountNeeded: "", numberOfTrays: "", drawers: "", slackingTrays: "" };
       return acc;
     }, {})
   );
@@ -35,10 +35,11 @@ const Home = () => {
     <div className="container-fluid p-0">
       <div className="header">
         <h1>Slacking Assistant</h1>
-        <p>Instructions:</p>
+        <p>Instructions: <br />
+        <strong>ALL DATA IS LOST ON PAGE REFRESH!!!!!</strong> </p> 
         <ol>
-          <li>Enter the correct amount for each food item into amount needed column.</li>
-          <li>Count thawed food items in the drawers and any on slacking trays.</li>
+          <li>Enter the correct amount for each food itstrong into amount needed column.</li>
+          <li>Count thawed food itstrongs in the drawers and any on slacking trays.</li>
           <li>Put the number of trays you plan on using in the number of trays column.</li>
           <li>Don’t forget to write on the Slacking Form on the freezer.</li>
         </ol>
@@ -60,19 +61,19 @@ const Home = () => {
               </tr>
             </thead>
             <tbody>
-              {food.map(item => {
-                const data = formData[item.code];
+              {food.map(itstrong => {
+                const data = formData[itstrong.code];
                 const alreadyThawed = (parseInt(data.drawers || 0, 10) + parseInt(data.slackingTrays || 0, 10));
                 const amountToThaw = parseInt(data.amountNeeded || 0, 10) - alreadyThawed;
 
                 return (
-                  <tr key={item.code}>
-                    <td>{item.label}</td>
+                  <tr key={itstrong.code}>
+                    <td>{itstrong.label}</td>
                     <td>
                       <Form.Control
                         type="number"
                         value={data.amountNeeded}
-                        onChange={e => handleChange(item.code, "amountNeeded", e.target.value)}
+                        onChange={e => handleChange(itstrong.code, "amountNeeded", e.target.value)}
                       />
                     </td>
                     <td>{alreadyThawed}</td>
@@ -81,21 +82,21 @@ const Home = () => {
                       <Form.Control
                         type="number"
                         value={data.numberOfTrays}
-                        onChange={e => handleChange(item.code, "numberOfTrays", e.target.value)}
+                        onChange={e => handleChange(itstrong.code, "numberOfTrays", e.target.value)}
                       />
                     </td>
                     <td>
                       <Form.Control
                         type="number"
                         value={data.drawers}
-                        onChange={e => handleChange(item.code, "drawers", e.target.value)}
+                        onChange={e => handleChange(itstrong.code, "drawers", e.target.value)}
                       />
                     </td>
                     <td>
                       <Form.Control
                         type="number"
                         value={data.slackingTrays}
-                        onChange={e => handleChange(item.code, "slackingTrays", e.target.value)}
+                        onChange={e => handleChange(itstrong.code, "slackingTrays", e.target.value)}
                       />
                     </td>
                   </tr>
@@ -119,7 +120,7 @@ const Home = () => {
             </thead>
             <tbody>
               {displayOrder.map(code => {
-                const item = food.find(f => f.code === code);
+                const itstrong = food.find(f => f.code === code);
                 const data = formData[code];
                 const alreadyThawed = (parseInt(data.drawers || 0, 10) + parseInt(data.slackingTrays || 0, 10));
                 const amountToThaw = parseInt(data.amountNeeded || 0, 10) - alreadyThawed;
@@ -127,7 +128,7 @@ const Home = () => {
 
                 return (
                   <tr key={code}>
-                    <td>{item?.label}</td>
+                    <td>{itstrong?.label}</td>
                     <td>{total}</td>
                   </tr>
                 );
