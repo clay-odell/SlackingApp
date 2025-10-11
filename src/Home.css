@@ -72,3 +72,17 @@ table {
   text-align: left;    /* center numbers */
 }
 
+/* Highlight the "Amount to Thaw" column */
+.amount-to-thaw {
+  font-weight: 700;       /* bold */
+  font-size: 1.1rem;      /* larger text */
+  color: #b22222;         /* optional: make it stand out (firebrick red) */
+  text-align: center;
+}
+
+/* On very small screens, scale it down slightly */
+@media (max-width: 420px) {
+  .amount-to-thaw {
+    font-size: 1rem;
+  }
+}

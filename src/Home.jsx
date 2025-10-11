@@ -53,7 +53,7 @@ const Home = () => {
                 <th>Food</th>
                 <th>Amount Needed</th>
                 <th>Already Thawed</th>
-                <th>Amount to Thaw</th>
+                <th className="amount-to-thaw">Amount to Thaw</th>
                 <th>Number of Trays</th>
                 <th>Drawers</th>
                 <th>Slacking Trays</th>
@@ -76,7 +76,7 @@ const Home = () => {
                       />
                     </td>
                     <td>{alreadyThawed}</td>
-                    <td>{amountToThaw >= 0 ? amountToThaw : 0}</td>
+                    <td className="amount-to-thaw">{amountToThaw >= 0 ? amountToThaw : 0}</td>
                     <td>
                       <Form.Control
                         type="number"
