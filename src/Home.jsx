@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Form, Table } from "react-bootstrap";
 import "./Home.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -17,38 +17,38 @@ const Home = () => {
 
   const displayOrder = ["BEC", "BB", "BBM", "CMT", "CW", "CC", "SEC", "W"];
 
-  // initialize state
+  // initialize state with empty strings so inputs start blank
   const [formData, setFormData] = useState(
     food.reduce((acc, item) => {
       acc[item.code] = {
-        amountNeeded: 0,
-        numberOfTrays: 0,
-        drawers: 0,
-        slackingTrays: 0,
+        amountNeeded: "",
+        numberOfTrays: "",
+        drawers: "",
+        slackingTrays: "",
       };
       return acc;
     }, {})
   );
 
-  // normalize inputs to numbers
+  // store raw string values, convert later when computing
   const handleChange = (code, field, value) => {
     setFormData((prev) => ({
       ...prev,
-      [code]: { ...prev[code], [field]: Number(value) || 0 },
+      [code]: { ...prev[code], [field]: value }
     }));
   };
 
   // helper to compute derived values
   const computeValues = (data) => {
-    const {
-      amountNeeded = 0,
-      numberOfTrays = 0,
-      drawers = 0,
-      slackingTrays = 0,
-    } = data;
+    const amountNeeded = parseInt(data.amountNeeded || 0, 10);
+    const numberOfTrays = parseInt(data.numberOfTrays || 0, 10);
+    const drawers = parseInt(data.drawers || 0, 10);
+    const slackingTrays = parseInt(data.slackingTrays || 0, 10);
+
     const alreadyThawed = drawers + slackingTrays;
     const amountToThaw = Math.max(amountNeeded - alreadyThawed, 0);
     const total = amountToThaw + numberOfTrays;
+
     return { alreadyThawed, amountToThaw, total };
   };
 
@@ -61,17 +61,9 @@ const Home = () => {
           <strong>ALL DATA IS LOST ON PAGE REFRESH!!!!!</strong>
         </p>
         <ol>
-          <li>
-            Enter the correct amount for each food item into amount needed
-            column.
-          </li>
-          <li>
-            Count thawed food using the columns for drawers and slacking trays.
-          </li>
-          <li>
-            Put the number of trays you plan on using in the number of trays
-            column.
-          </li>
+          <li>Enter the correct amount for each food item into amount needed column.</li>
+          <li>Count thawed food using the columns for drawers and slacking trays.</li>
+          <li>Put the number of trays you plan on using in the number of trays column.</li>
           <li>Don’t forget to write on the Slacking Form on the freezer.</li>
         </ol>
       </div>
