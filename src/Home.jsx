@@ -38,7 +38,7 @@ const Home = () => {
         <p>Instructions: <br />
         <strong>ALL DATA IS LOST ON PAGE REFRESH!!!!!</strong> </p> 
         <ol>
-          <li>Enter the correct amount for each food itstrong into amount needed column.</li>
+          <li>Enter the correct amount for each food into amount needed column.</li>
           <li>Count thawed food itstrongs in the drawers and any on slacking trays.</li>
           <li>Put the number of trays you plan on using in the number of trays column.</li>
           <li>Don’t forget to write on the Slacking Form on the freezer.</li>
@@ -54,7 +54,7 @@ const Home = () => {
                 <th>Food</th>
                 <th>Amount Needed</th>
                 <th>Already Thawed</th>
-                <th className="amount-to-thaw">Amount to Thaw</th>
+                <th>Amount to Thaw</th>
                 <th>Number of Trays</th>
                 <th>Drawers</th>
                 <th>Slacking Trays</th>
