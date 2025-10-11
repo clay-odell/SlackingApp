@@ -1,28 +1,51 @@
+/* Header */
 .header h1 {
   text-align: center;
-  font-size: clamp(1.5rem, 5vw, 2.5rem); /* scales with screen size */
-  margin: 1rem 0;
+  font-size: clamp(1.5rem, 5vw, 2.25rem); /* scales smoothly */
+  margin: 1rem 0 0.5rem;
+  font-weight: 600;
 }
 
+.header p {
+  text-align: left;
+  margin: 0.5rem 1rem;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+/* Instruction list */
+.header ol {
+  padding-left: 1.25rem;
+  margin: 0.5rem 1rem 1rem;
+  font-size: 0.9rem;
+}
+
+/* Tables */
 .main, .summary {
   width: 100%;
-  max-width: 100%; /* let it stretch on mobile */
   margin: 0.5rem auto;
   padding: 0.5rem;
   box-sizing: border-box;
 }
 
-/* Make tables more compact on small screens */
-@media (max-width: 576px) {
+table {
+  width: 100% !important;
+  border-collapse: collapse;
+}
+
+/* Ultra-small devices (iPhone 14 portrait ~390px) */
+@media (max-width: 420px) {
   table {
-    font-size: 0.85rem;
+    font-size: 0.75rem;
   }
   table th, table td {
-    padding: 0.25rem;
-    vertical-align: middle;
+    padding: 0.2rem;
   }
-  .card h3 {
-    font-size: 1.2rem;
-    text-align: center;
+  .header h1 {
+    font-size: 1.25rem;
+  }
+  .header p, .header ol {
+    font-size: 0.8rem;
   }
 }
+
