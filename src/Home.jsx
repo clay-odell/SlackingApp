@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Form, Table, Card } from "react-bootstrap";
+import { useState, useEffect } from "react";
+import { Form, Table } from "react-bootstrap";
 import "./Home.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -15,28 +15,46 @@ const Home = () => {
     { code: "BBM", label: "Blueberry Muffin" },
   ];
 
-  const displayOrder = ["BEC","BB","BBM","CMT","CW","CC","SEC","W"];
+  const displayOrder = ["BEC", "BB", "BBM", "CMT", "CW", "CC", "SEC", "W"];
 
+  // initialize state
   const [formData, setFormData] = useState(
-    food.reduce((acc, itstrong) => {
-      acc[itstrong.code] = { amountNeeded: "", numberOfTrays: "", drawers: "", slackingTrays: "" };
+    food.reduce((acc, item) => {
+      acc[item.code] = {
+        amountNeeded: 0,
+        numberOfTrays: 0,
+        drawers: 0,
+        slackingTrays: 0,
+      };
       return acc;
     }, {})
   );
 
+  // normalize inputs to numbers
   const handleChange = (code, field, value) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [code]: { ...prev[code], [field]: value }
+      [code]: { ...prev[code], [field]: Number(value) || 0 },
     }));
+  };
+
+  // helper to compute derived values
+  const computeValues = (data) => {
+    const { amountNeeded = 0, numberOfTrays = 0, drawers = 0, slackingTrays = 0 } = data;
+    const alreadyThawed = drawers + slackingTrays;
+    const amountToThaw = Math.max(amountNeeded - alreadyThawed, 0);
+    const total = amountToThaw + numberOfTrays;
+    return { alreadyThawed, amountToThaw, total };
   };
 
   return (
     <div className="container-fluid p-0">
       <div className="header">
         <h1>Slacking Assistant</h1>
-        <p>Instructions: <br />
-        <strong>ALL DATA IS LOST ON PAGE REFRESH!!!!!</strong> </p> 
+        <p>
+          Instructions: <br />
+          <strong>ALL DATA IS LOST ON PAGE REFRESH!!!!!</strong>
+        </p>
         <ol>
           <li>Enter the correct amount for each food into amount needed column.</li>
           <li>Count thawed food using the columns for drawers and slacking trays.</li>
@@ -46,97 +64,98 @@ const Home = () => {
       </div>
 
       {/* Main Input Table */}
-      
-        <div className="table-responsive">
-          <Table striped bordered hover size="sm" className="w-100">
-            <thead>
-              <tr>
-                <th>Food</th>
-                <th>Amount Needed</th>
-                <th>Already Thawed</th>
-                <th>Amount to Thaw</th>
-                <th>Number of Trays</th>
-                <th>Drawers</th>
-                <th>Slacking Trays</th>
-              </tr>
-            </thead>
-            <tbody>
-              {food.map(itstrong => {
-                const data = formData[itstrong.code];
-                const alreadyThawed = (parseInt(data.drawers || 0, 10) + parseInt(data.slackingTrays || 0, 10));
-                const amountToThaw = parseInt(data.amountNeeded || 0, 10) - alreadyThawed;
+      <div className="table-responsive">
+        <Table striped bordered hover size="sm" className="w-100">
+          <thead>
+            <tr>
+              <th>Food</th>
+              <th>Amount Needed</th>
+              <th>Already Thawed</th>
+              <th>Amount to Thaw</th>
+              <th>Number of Trays</th>
+              <th>Drawers</th>
+              <th>Slacking Trays</th>
+            </tr>
+          </thead>
+          <tbody>
+            {food.map((item) => {
+              const data = formData[item.code];
+              const { alreadyThawed, amountToThaw } = computeValues(data);
 
-                return (
-                  <tr key={itstrong.code}>
-                    <td>{itstrong.label}</td>
-                    <td>
-                      <Form.Control
-                        type="number"
-                        value={data.amountNeeded}
-                        onChange={e => handleChange(itstrong.code, "amountNeeded", e.target.value)}
-                      />
-                    </td>
-                    <td>{alreadyThawed}</td>
-                    <td className="amount-to-thaw">{amountToThaw >= 0 ? amountToThaw : 0}</td>
-                    <td>
-                      <Form.Control
-                        type="number"
-                        value={data.numberOfTrays}
-                        onChange={e => handleChange(itstrong.code, "numberOfTrays", e.target.value)}
-                      />
-                    </td>
-                    <td>
-                      <Form.Control
-                        type="number"
-                        value={data.drawers}
-                        onChange={e => handleChange(itstrong.code, "drawers", e.target.value)}
-                      />
-                    </td>
-                    <td>
-                      <Form.Control
-                        type="number"
-                        value={data.slackingTrays}
-                        onChange={e => handleChange(itstrong.code, "slackingTrays", e.target.value)}
-                      />
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </Table>
-        </div>
-     
+              return (
+                <tr key={item.code}>
+                  <td>{item.label}</td>
+                  <td>
+                    <Form.Control
+                      type="number"
+                      value={data.amountNeeded}
+                      onChange={(e) =>
+                        handleChange(item.code, "amountNeeded", e.target.value)
+                      }
+                    />
+                  </td>
+                  <td>{alreadyThawed}</td>
+                  <td className="amount-to-thaw">{amountToThaw}</td>
+                  <td>
+                    <Form.Control
+                      type="number"
+                      value={data.numberOfTrays}
+                      onChange={(e) =>
+                        handleChange(item.code, "numberOfTrays", e.target.value)
+                      }
+                    />
+                  </td>
+                  <td>
+                    <Form.Control
+                      type="number"
+                      value={data.drawers}
+                      onChange={(e) =>
+                        handleChange(item.code, "drawers", e.target.value)
+                      }
+                    />
+                  </td>
+                  <td>
+                    <Form.Control
+                      type="number"
+                      value={data.slackingTrays}
+                      onChange={(e) =>
+                        handleChange(item.code, "slackingTrays", e.target.value)
+                      }
+                    />
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </Table>
+      </div>
 
       {/* Summary Table */}
-     
-        <h3 className="text-center">Printing Summary</h3>
-        <div className="table-responsive summary-table">
-          <Table striped bordered hover size="sm" className="w-100" responsive>
-            <thead>
-              <tr>
-                <th>Food</th>
-                <th># of Labels to Print</th>
-              </tr>
-            </thead>
-            <tbody>
-              {displayOrder.map(code => {
-                const itstrong = food.find(f => f.code === code);
-                const data = formData[code];
-                const alreadyThawed = (parseInt(data.drawers || 0, 10) + parseInt(data.slackingTrays || 0, 10));
-                const amountToThaw = parseInt(data.amountNeeded || 0, 10) - alreadyThawed;
-                const total = (amountToThaw >= 0 ? amountToThaw : 0) + parseInt(data.numberOfTrays || 0, 10);
+      <h3 className="text-center">Printing Summary</h3>
+      <div className="table-responsive summary-table">
+        <Table striped bordered hover size="sm" className="w-100">
+          <thead>
+            <tr>
+              <th>Food</th>
+              <th># of Labels to Print</th>
+            </tr>
+          </thead>
+          <tbody>
+            {displayOrder.map((code) => {
+              const item = food.find((f) => f.code === code);
+              const data = formData[code];
+              const { total } = computeValues(data);
 
-                return (
-                  <tr key={code}>
-                    <td>{itstrong?.label}</td>
-                    <td>{total}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </Table>
-        </div>
-      
+              return (
+                <tr key={code}>
+                  <td>{item?.label}</td>
+                  <td>{total}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </Table>
+      </div>
     </div>
   );
 };
