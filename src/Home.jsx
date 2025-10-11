@@ -55,12 +55,6 @@ const Home = () => {
   return (
     <div className="container-fluid p-0">
       <div className="header">
-        <img
-          src="/DBWM.png"
-          alt="Company Logo"
-          style={{ maxWidth: "150px", height: "auto" }}
-        />
-
         <h1>Slacking Assistant</h1>
         <p>
           Instructions: <br />
