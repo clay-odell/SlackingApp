@@ -40,7 +40,12 @@ const Home = () => {
 
   // helper to compute derived values
   const computeValues = (data) => {
-    const { amountNeeded = 0, numberOfTrays = 0, drawers = 0, slackingTrays = 0 } = data;
+    const {
+      amountNeeded = 0,
+      numberOfTrays = 0,
+      drawers = 0,
+      slackingTrays = 0,
+    } = data;
     const alreadyThawed = drawers + slackingTrays;
     const amountToThaw = Math.max(amountNeeded - alreadyThawed, 0);
     const total = amountToThaw + numberOfTrays;
@@ -50,15 +55,29 @@ const Home = () => {
   return (
     <div className="container-fluid p-0">
       <div className="header">
+        <img
+          src="/DBWM.png"
+          alt="Company Logo"
+          style={{ maxWidth: "150px", height: "auto" }}
+        />
+
         <h1>Slacking Assistant</h1>
         <p>
           Instructions: <br />
           <strong>ALL DATA IS LOST ON PAGE REFRESH!!!!!</strong>
         </p>
         <ol>
-          <li>Enter the correct amount for each food item into amount needed column.</li>
-          <li>Count thawed food using the columns for drawers and slacking trays.</li>
-          <li>Put the number of trays you plan on using in the number of trays column.</li>
+          <li>
+            Enter the correct amount for each food item into amount needed
+            column.
+          </li>
+          <li>
+            Count thawed food using the columns for drawers and slacking trays.
+          </li>
+          <li>
+            Put the number of trays you plan on using in the number of trays
+            column.
+          </li>
           <li>Don’t forget to write on the Slacking Form on the freezer.</li>
         </ol>
       </div>
