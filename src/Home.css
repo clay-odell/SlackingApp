@@ -1,3 +1,28 @@
 .header h1 {
+  text-align: center;
+  font-size: clamp(1.5rem, 5vw, 2.5rem); /* scales with screen size */
+  margin: 1rem 0;
+}
+
+.main, .summary {
+  width: 100%;
+  max-width: 100%; /* let it stretch on mobile */
+  margin: 0.5rem auto;
+  padding: 0.5rem;
+  box-sizing: border-box;
+}
+
+/* Make tables more compact on small screens */
+@media (max-width: 576px) {
+  table {
+    font-size: 0.85rem;
+  }
+  table th, table td {
+    padding: 0.25rem;
+    vertical-align: middle;
+  }
+  .card h3 {
+    font-size: 1.2rem;
     text-align: center;
+  }
 }

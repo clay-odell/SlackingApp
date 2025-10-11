@@ -56,7 +56,8 @@ const Home = () => {
       </div>
 
       {/* Main Input Table */}
-      <Card className="main p-3 mb-4">
+      <Card className="main border-0 shadow-sm rounded mx-auto mb-3">
+        <div className="table-responsive-sm">
         <Table striped bordered hover responsive>
           <thead>
             <tr>
@@ -124,10 +125,11 @@ const Home = () => {
             })}
           </tbody>
         </Table>
+        </div>
       </Card>
       {/* Summary Table */}
-      <Card className="summary p-3">
-        <h3>Summary</h3>
+      <Card className="summary border-0 shadow-lg rounded mx-auto responsive">
+        <h3>Printing Summary</h3>
         <Table striped bordered hover responsive>
           <thead>
             <tr>
