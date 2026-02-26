@@ -13,9 +13,20 @@ const Home = () => {
     { code: "BB", label: "Banana Bread" },
     { code: "CMT", label: "Choc Chip Muffin" },
     { code: "BBM", label: "Blueberry Muffin" },
+    { code: "CP", label: "Cookie Dough Cake Pop" },
   ];
 
-  const displayOrder = ["BEC", "BB", "BBM", "CMT", "CW", "CC", "SEC", "W"];
+  const displayOrder = [
+    "BEC",
+    "BB",
+    "BBM",
+    "CP",
+    "CMT",
+    "CW",
+    "CC",
+    "SEC",
+    "W",
+  ];
   const [showInstructions, setShowInstructions] = useState(true);
 
   // initialize state with empty strings so inputs start blank
@@ -71,10 +82,21 @@ const Home = () => {
               <strong>ALL DATA IS LOST ON PAGE REFRESH!!!!!</strong>
             </p>
             <ol>
-              <li>Enter the correct amount for each food item into amount needed column.</li>
-              <li>Count thawed food using the columns for drawers and slacking trays.</li>
-              <li>Put the number of trays you plan on using in the number of trays column.</li>
-              <li>Don’t forget to write on the Slacking Form on the freezer.</li>
+              <li>
+                Enter the correct amount for each food item into amount needed
+                column.
+              </li>
+              <li>
+                Count thawed food using the columns for drawers and slacking
+                trays.
+              </li>
+              <li>
+                Put the number of trays you plan on using in the number of trays
+                column.
+              </li>
+              <li>
+                Don’t forget to write on the Slacking Form on the freezer.
+              </li>
             </ol>
           </>
         )}
